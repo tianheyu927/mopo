@@ -5,7 +5,7 @@ Code to reproduce the experiments in [MOPO: Model-based Offline Policy Optimizat
 
 
 ## Installation
-1. Install [MuJoCo 1.50](https://www.roboti.us/index.html) at `~/.mujoco/mjpro150` and copy your license key to `~/.mujoco/mjkey.txt`
+1. Install [MuJoCo 2.0](https://www.roboti.us/index.html) at `~/.mujoco/mujoco200` and copy your license key to `~/.mujoco/mjkey.txt`
 2. Create a conda environment and install mopo
 ```
 cd mopo
