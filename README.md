@@ -11,6 +11,8 @@ Code to reproduce the experiments in [MOPO: Model-based Offline Policy Optimizat
 cd mopo
 conda env create -f environment/gpu-env.yml
 conda activate mopo
+# Install viskit
+git clone https://github.com/vitchyr/viskit.git
 pip install -e viskit
 pip install -e .
 ```
