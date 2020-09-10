@@ -6,8 +6,8 @@ from mopo.models.fc import FC
 from mopo.models.bnn import BNN
 
 def construct_model(obs_dim=11, act_dim=3, rew_dim=1, hidden_dim=200, num_networks=7,
-					num_elites=5, session=None, model_type='mlp', sn=False,
-					separate_mean_var=False, name=None, load_dir=None, deterministic=False):
+					num_elites=5, session=None, model_type='mlp', separate_mean_var=False,
+					name=None, load_dir=None, deterministic=False):
 	if name is None:
 		name = 'BNN'
 	print('[ BNN ] Name {} | Observation dim {} | Action dim: {} | Hidden dim: {}'.format(name, obs_dim, act_dim, hidden_dim))
@@ -28,13 +28,13 @@ def construct_model(obs_dim=11, act_dim=3, rew_dim=1, hidden_dim=200, num_networ
 			model.add(FC(obs_dim+rew_dim, input_dim=obs_dim+act_dim, weight_decay=0.000025))
 		elif model_type == 'mlp':
 			print('[ BNN ] Training non-linear model | Obs: {} | Act: {} | Rew: {}'.format(obs_dim, act_dim, rew_dim))
-			model.add(FC(hidden_dim, input_dim=obs_dim+act_dim, activation="swish", weight_decay=0.000025, sn=sn))
-			model.add(FC(hidden_dim, activation="swish", weight_decay=0.00005, sn=sn))
-			model.add(FC(hidden_dim, activation="swish", weight_decay=0.000075, sn=sn))
-			model.add(FC(hidden_dim, activation="swish", weight_decay=0.000075, sn=sn))
-			model.add(FC(obs_dim+rew_dim, weight_decay=0.0001, sn=sn))
+			model.add(FC(hidden_dim, input_dim=obs_dim+act_dim, activation="swish", weight_decay=0.000025))
+			model.add(FC(hidden_dim, activation="swish", weight_decay=0.00005))
+			model.add(FC(hidden_dim, activation="swish", weight_decay=0.000075))
+			model.add(FC(hidden_dim, activation="swish", weight_decay=0.000075))
+			model.add(FC(obs_dim+rew_dim, weight_decay=0.0001))
 			if separate_mean_var:
-				model.add(FC(obs_dim+rew_dim, input_dim=hidden_dim, weight_decay=0.0001, sn=False), var_layer=True)
+				model.add(FC(obs_dim+rew_dim, input_dim=hidden_dim, weight_decay=0.0001), var_layer=True)
 
 	if load_dir is not None:
 		model.model_loaded = True

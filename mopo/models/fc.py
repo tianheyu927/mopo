@@ -22,7 +22,7 @@ class FC:
     }
 
     def __init__(self, output_dim, input_dim=None,
-                 activation=None, weight_decay=None, ensemble_size=1, sn=False):
+                 activation=None, weight_decay=None, ensemble_size=1):
         """Initializes a fully connected layer.
 
         Arguments:
@@ -33,14 +33,12 @@ class FC:
                                     None applies the identity function.
             weight_decay: (float) The rate of weight decay applied to the weights of this layer.
             ensemble_size: (int) The number of networks in the ensemble within which this layer will be used.
-            sn: (bool) The flag to determine whether to use spectral norm or not.
         """
         # Set layer parameters
         self.input_dim, self.output_dim = input_dim, output_dim
         self.activation = activation
         self.weight_decay = weight_decay
         self.ensemble_size = ensemble_size
-        self.sn = sn
 
         # Initialize internal state
         self.variables_constructed = False
@@ -96,10 +94,7 @@ class FC:
         Returns: The output of the layer, as described above.
         """
         # Get raw layer outputs
-        if self.sn:
-            weights = spectral_norm(self.weights)
-        else:
-            weights = self.weights
+        weights = self.weights
         if len(input_tensor.shape) == 2:
             raw_output = tf.einsum("ij,ajk->aik", input_tensor, weights) + self.biases
         elif len(input_tensor.shape) == 3 and input_tensor.shape[0].value == self.ensemble_size:

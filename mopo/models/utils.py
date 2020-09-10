@@ -40,7 +40,7 @@ def spectral_norm(w, iteration=1):
        w_norm = tf.reshape(w_norm, w_shape)
 
 
-   return w_norm
+   return w_norm, u
 
 class TensorStandardScaler:
     """Helper class for automatically normalizing inputs into the network.

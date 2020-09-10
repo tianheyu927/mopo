@@ -8,8 +8,6 @@ from mopo.models.constructor import construct_model, format_samples_for_training
 
 def model_name(args):
     name = f'{args.env}-{args.quality}'
-    if args.sn:
-        name += '_sn'
     if args.separate_mean_var:
         name += '_smv'
     name += f'_{args.seed}'
@@ -27,8 +25,7 @@ def main(args):
 
     model = construct_model(obs_dim=obs_dim, act_dim=act_dim, hidden_dim=args.hidden_dim,
                             num_networks=args.num_networks, num_elites=args.num_elites,
-                            model_type=args.model_type, sn=args.sn, gradient_penalty=args.gradient_penalty,
-                            gradient_penalty_scale=args.gradient_penalty_scale, separate_mean_var=args.separate_mean_var,
+                            model_type=args.model_type, separate_mean_var=args.separate_mean_var,
                             name=model_name(args))
 
     dataset['rewards'] = np.expand_dims(dataset['rewards'], 1)
@@ -54,8 +51,5 @@ if __name__ == '__main__':
     parser.add_argument('--holdout-ratio', default=0.2, type=float)
     parser.add_argument('--max-epochs', default=None, type=int)
     parser.add_argument('--max-t', default=None, type=float)
-    parser.add_argument('--sn', action='store_true')
-    parser.add_argument('--gradient-penalty', default=0.0, type=float)
-    parser.add_argument('--gradient-penalty-scale', default=10.0, type=float)
     parser.add_argument('--model-dir', default='/tiger/u/gwthomas/d4rl/models')
     main(parser.parse_args())

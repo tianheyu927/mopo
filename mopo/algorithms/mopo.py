@@ -73,7 +73,6 @@ class MOPO(RLAlgorithm):
             hidden_dim=200,
             max_model_t=None,
             model_type='mlp',
-            sn=False,
             separate_mean_var=False,
             identity_terminal=0,
 
@@ -115,7 +114,7 @@ class MOPO(RLAlgorithm):
         self._identity_terminal = identity_terminal
         self._model = construct_model(obs_dim=obs_dim, act_dim=act_dim, hidden_dim=hidden_dim,
                                       num_networks=num_networks, num_elites=num_elites,
-                                      model_type=model_type, sn=sn, separate_mean_var=separate_mean_var,
+                                      model_type=model_type, separate_mean_var=separate_mean_var,
                                       name=model_name, load_dir=model_load_dir, deterministic=deterministic)
         self._static_fns = static_fns
         self.fake_env = FakeEnv(self._model, self._static_fns, penalty_coeff=penalty_coeff,
