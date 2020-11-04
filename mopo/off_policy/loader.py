@@ -5,10 +5,9 @@ import gzip
 import pdb
 import numpy as np
 
-def restore_pool(replay_pool, experiment_root, max_size, save_path=None, env=None):
+def restore_pool(replay_pool, experiment_root, max_size, save_path=None):
     if 'd4rl' in experiment_root:
-        assert env is not None
-        restore_pool_d4rl(replay_pool, experiment_root[5:], env)
+        restore_pool_d4rl(replay_pool, experiment_root[5:])
     else:
         assert os.path.exists(experiment_root)
         if os.path.isdir(experiment_root):
@@ -21,10 +20,10 @@ def restore_pool(replay_pool, experiment_root, max_size, save_path=None, env=Non
     print('[ mbpo/off_policy ] Replay pool has size: {}'.format(replay_pool.size))
 
 
-def restore_pool_d4rl(replay_pool, name, env):
+def restore_pool_d4rl(replay_pool, name):
     import gym
     import d4rl
-    data = d4rl.qlearning_dataset(env.unwrapped)
+    data = d4rl.qlearning_dataset(gym.make(name))
     data['rewards'] = np.expand_dims(data['rewards'], axis=1)
     data['terminals'] = np.expand_dims(data['terminals'], axis=1)
     replay_pool.add_samples(data)
