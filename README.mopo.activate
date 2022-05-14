@@ -1,0 +1,7 @@
+# source this file to activate the mopo environment
+
+# run these steps to create environment
+eval "$(conda shell.bash hook)"
+conda activate /home/ajc348/rds/hpc-work/mopo/.env
+export LD_LIBRARY_PATH=/home/ajc348/.mujoco/mujoco210/bin:$LD_LIBRARY_PATH
+export TF_FORCE_GPU_ALLOW_GROWTH=true
