@@ -121,3 +121,6 @@ vendor/*
 .mujoco/
 .vscode/
 .DS_Store
+
+.env/
+ray_mopo/
