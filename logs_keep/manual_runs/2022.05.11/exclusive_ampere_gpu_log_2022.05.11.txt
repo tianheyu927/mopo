@@ -1,0 +1,1085 @@
+WARNING: Logging before flag parsing goes to stderr.
+W0511 11:33:24.442203 139884854421312 lazy_loader.py:50] 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+Warning: Flow failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+No module named 'flow'
+Warning: CARLA failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+No module named 'carla'
+2022-05-11 11:33:26,010	INFO node.py:498 -- Process STDOUT and STDERR is being redirected to /tmp/ray/session_2022-05-11_11-33-26_010256_822990/logs.
+2022-05-11 11:33:26,121	INFO services.py:409 -- Waiting for redis server at 127.0.0.1:40296 to respond...
+2022-05-11 11:33:26,233	INFO services.py:409 -- Waiting for redis server at 127.0.0.1:41604 to respond...
+2022-05-11 11:33:26,234	INFO services.py:806 -- Starting Redis shard with 10.0 GB max memory.
+2022-05-11 11:33:26,256	INFO node.py:512 -- Process STDOUT and STDERR is being redirected to /tmp/ray/session_2022-05-11_11-33-26_010256_822990/logs.
+2022-05-11 11:33:26,256	WARNING services.py:1294 -- Warning: Capping object memory store to 20.0GB. To increase this further, specify `object_store_memory` when calling ray.init() or ray start.
+2022-05-11 11:33:26,256	INFO services.py:1442 -- Starting the Plasma object store with 20.0 GB memory using /dev/shm.
+2022-05-11 11:33:26,814	INFO tune.py:61 -- Tip: to resume incomplete experiments, pass resume='prompt' or resume=True to run()
+2022-05-11 11:33:26,814	INFO tune.py:232 -- Starting a new experiment.
+W0511 11:33:26.845498 139884854421312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/logger.py:131: The name tf.VERSION is deprecated. Please use tf.version.VERSION instead.
+
+W0511 11:33:26.845815 139884854421312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/logger.py:136: The name tf.summary.FileWriter is deprecated. Please use tf.compat.v1.summary.FileWriter instead.
+
+2022-05-11 11:36:13,927	ERROR trial_runner.py:487 -- Error processing event.
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/trial_runner.py", line 436, in _process_trial
+    result = self.trial_executor.fetch_result(trial)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/ray_trial_executor.py", line 323, in fetch_result
+    result = ray.get(trial_future[0])
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/worker.py", line 2189, in get
+    raise value
+ray.exceptions.RayTaskError: [36mray_ExperimentRunner:train()[39m (pid=823094, host=gpu-q-26)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1356, in _do_call
+    return fn(*args)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1341, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1429, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.InternalError: Blas xGEMMBatched launch failed : a.shape=[7,256,23], b.shape=[7,23,200], m=256, n=200, k=23, batch_size=7
+	 [[{{node BNN_1/MatMul}}]]
+
+During handling of the above exception, another exception occurred:
+
+[36mray_ExperimentRunner:train()[39m (pid=823094, host=gpu-q-26)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/trainable.py", line 151, in train
+    result = self._train()
+  File "/rds/user/ajc348/hpc-work/mopo/examples/development/main.py", line 90, in _train
+    diagnostics = next(self.train_generator)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py", line 228, in _train
+    model_train_metrics = self._train_model(batch_size=256, max_epochs=max_epochs, holdout_ratio=0.2, max_t=self._max_model_t)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py", line 405, in _train_model
+    model_metrics = self._model.train(train_inputs, train_outputs, **kwargs)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/models/bnn.py", line 426, in train
+    feed_dict={self.sy_train_in: inputs[batch_idxs], self.sy_train_targ: targets[batch_idxs]}
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 950, in run
+    run_metadata_ptr)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1173, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1350, in _do_run
+    run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1370, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InternalError: Blas xGEMMBatched launch failed : a.shape=[7,256,23], b.shape=[7,23,200], m=256, n=200, k=23, batch_size=7
+	 [[node BNN_1/MatMul (defined at /mopo/models/fc.py:101) ]]
+
+Errors may have originated from an input operation.
+Input Source operations connected to node BNN_1/MatMul:
+ BNN/Layer0_mean/FC_weights/read (defined at /mopo/models/fc.py:148)	
+ BNN_1/truediv (defined at /mopo/models/utils.py:96)
+
+Original stack trace for 'BNN_1/MatMul':
+  File "/.env/lib/python3.6/site-packages/ray/workers/default_worker.py", line 98, in <module>
+    ray.worker.global_worker.main_loop()
+  File "/.env/lib/python3.6/site-packages/ray/tune/trainable.py", line 151, in train
+    result = self._train()
+  File "/examples/development/main.py", line 85, in _train
+    self._build()
+  File "/examples/development/main.py", line 77, in _build
+    session=self._session)
+  File "/softlearning/algorithms/utils.py", line 48, in get_algorithm_from_variant
+    variant, *args, **algorithm_kwargs, **kwargs)
+  File "/softlearning/algorithms/utils.py", line 29, in create_MOPO_algorithm
+    algorithm = MOPO(*args, **kwargs)
+  File "/mopo/algorithms/mopo.py", line 118, in __init__
+    name=model_name, load_dir=model_load_dir, deterministic=deterministic)
+  File "/mopo/models/constructor.py", line 42, in construct_model
+    model.finalize(tf.train.AdamOptimizer, {"learning_rate": 0.001})
+  File "/mopo/models/bnn.py", line 243, in finalize
+    train_loss = tf.reduce_sum(self._compile_losses(self.sy_train_in, self.sy_train_targ, inc_var_loss=True))
+  File "/mopo/models/bnn.py", line 684, in _compile_losses
+    mean, log_var = self._compile_outputs(inputs, ret_log_var=True)
+  File "/mopo/models/bnn.py", line 655, in _compile_outputs
+    mean = layer.compute_output_tensor(mean)
+  File "/mopo/models/fc.py", line 101, in compute_output_tensor
+    raw_output = tf.matmul(input_tensor, weights) + self.biases
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/util/dispatch.py", line 180, in wrapper
+    return target(*args, **kwargs)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/ops/math_ops.py", line 2609, in matmul
+    return batch_mat_mul_fn(a, b, adj_x=adjoint_a, adj_y=adjoint_b, name=name)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/ops/gen_math_ops.py", line 1677, in batch_mat_mul_v2
+    "BatchMatMulV2", x=x, y=y, adj_x=adj_x, adj_y=adj_y, name=name)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2005, in __init__
+    self._traceback = tf_stack.extract_stack()
+
+
+2022-05-11 11:36:13,932	INFO ray_trial_executor.py:187 -- Destroying actor for trial seed:4528. If your trainable is slow to initialize, consider setting reuse_actors=True to reduce actor creation overheads.
+2022-05-11 11:36:13,934	INFO trial_runner.py:524 -- Attempting to recover trial state from last checkpoint.
+2022-05-11 11:38:50,592	ERROR trial_runner.py:487 -- Error processing event.
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/trial_runner.py", line 436, in _process_trial
+    result = self.trial_executor.fetch_result(trial)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/ray_trial_executor.py", line 323, in fetch_result
+    result = ray.get(trial_future[0])
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/worker.py", line 2189, in get
+    raise value
+ray.exceptions.RayTaskError: [36mray_ExperimentRunner:train()[39m (pid=823328, host=gpu-q-26)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1356, in _do_call
+    return fn(*args)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1341, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1429, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.InternalError: Blas xGEMMBatched launch failed : a.shape=[7,256,23], b.shape=[7,23,200], m=256, n=200, k=23, batch_size=7
+	 [[{{node BNN_1/MatMul}}]]
+
+During handling of the above exception, another exception occurred:
+
+[36mray_ExperimentRunner:train()[39m (pid=823328, host=gpu-q-26)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/trainable.py", line 151, in train
+    result = self._train()
+  File "/rds/user/ajc348/hpc-work/mopo/examples/development/main.py", line 90, in _train
+    diagnostics = next(self.train_generator)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py", line 228, in _train
+    model_train_metrics = self._train_model(batch_size=256, max_epochs=max_epochs, holdout_ratio=0.2, max_t=self._max_model_t)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py", line 405, in _train_model
+    model_metrics = self._model.train(train_inputs, train_outputs, **kwargs)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/models/bnn.py", line 426, in train
+    feed_dict={self.sy_train_in: inputs[batch_idxs], self.sy_train_targ: targets[batch_idxs]}
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 950, in run
+    run_metadata_ptr)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1173, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1350, in _do_run
+    run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1370, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InternalError: Blas xGEMMBatched launch failed : a.shape=[7,256,23], b.shape=[7,23,200], m=256, n=200, k=23, batch_size=7
+	 [[node BNN_1/MatMul (defined at /mopo/models/fc.py:101) ]]
+
+Errors may have originated from an input operation.
+Input Source operations connected to node BNN_1/MatMul:
+ BNN/Layer0_mean/FC_weights/read (defined at /mopo/models/fc.py:148)	
+ BNN_1/truediv (defined at /mopo/models/utils.py:96)
+
+Original stack trace for 'BNN_1/MatMul':
+  File "/.env/lib/python3.6/site-packages/ray/workers/default_worker.py", line 98, in <module>
+    ray.worker.global_worker.main_loop()
+  File "/.env/lib/python3.6/site-packages/ray/tune/trainable.py", line 151, in train
+    result = self._train()
+  File "/examples/development/main.py", line 85, in _train
+    self._build()
+  File "/examples/development/main.py", line 77, in _build
+    session=self._session)
+  File "/softlearning/algorithms/utils.py", line 48, in get_algorithm_from_variant
+    variant, *args, **algorithm_kwargs, **kwargs)
+  File "/softlearning/algorithms/utils.py", line 29, in create_MOPO_algorithm
+    algorithm = MOPO(*args, **kwargs)
+  File "/mopo/algorithms/mopo.py", line 118, in __init__
+    name=model_name, load_dir=model_load_dir, deterministic=deterministic)
+  File "/mopo/models/constructor.py", line 42, in construct_model
+    model.finalize(tf.train.AdamOptimizer, {"learning_rate": 0.001})
+  File "/mopo/models/bnn.py", line 243, in finalize
+    train_loss = tf.reduce_sum(self._compile_losses(self.sy_train_in, self.sy_train_targ, inc_var_loss=True))
+  File "/mopo/models/bnn.py", line 684, in _compile_losses
+    mean, log_var = self._compile_outputs(inputs, ret_log_var=True)
+  File "/mopo/models/bnn.py", line 655, in _compile_outputs
+    mean = layer.compute_output_tensor(mean)
+  File "/mopo/models/fc.py", line 101, in compute_output_tensor
+    raw_output = tf.matmul(input_tensor, weights) + self.biases
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/util/dispatch.py", line 180, in wrapper
+    return target(*args, **kwargs)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/ops/math_ops.py", line 2609, in matmul
+    return batch_mat_mul_fn(a, b, adj_x=adjoint_a, adj_y=adjoint_b, name=name)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/ops/gen_math_ops.py", line 1677, in batch_mat_mul_v2
+    "BatchMatMulV2", x=x, y=y, adj_x=adj_x, adj_y=adj_y, name=name)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2005, in __init__
+    self._traceback = tf_stack.extract_stack()
+
+
+2022-05-11 11:38:50,598	INFO ray_trial_executor.py:187 -- Destroying actor for trial seed:4528. If your trainable is slow to initialize, consider setting reuse_actors=True to reduce actor creation overheads.
+2022-05-11 11:38:50,603	INFO trial_runner.py:524 -- Attempting to recover trial state from last checkpoint.
+2022-05-11 11:42:27,935	ERROR trial_runner.py:487 -- Error processing event.
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/trial_runner.py", line 436, in _process_trial
+    result = self.trial_executor.fetch_result(trial)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/ray_trial_executor.py", line 323, in fetch_result
+    result = ray.get(trial_future[0])
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/worker.py", line 2189, in get
+    raise value
+ray.exceptions.RayTaskError: [36mray_ExperimentRunner:train()[39m (pid=823177, host=gpu-q-26)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1356, in _do_call
+    return fn(*args)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1341, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1429, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.InternalError: Blas xGEMMBatched launch failed : a.shape=[7,256,23], b.shape=[7,23,200], m=256, n=200, k=23, batch_size=7
+	 [[{{node BNN_1/MatMul}}]]
+
+During handling of the above exception, another exception occurred:
+
+[36mray_ExperimentRunner:train()[39m (pid=823177, host=gpu-q-26)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/tune/trainable.py", line 151, in train
+    result = self._train()
+  File "/rds/user/ajc348/hpc-work/mopo/examples/development/main.py", line 90, in _train
+    diagnostics = next(self.train_generator)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py", line 228, in _train
+    model_train_metrics = self._train_model(batch_size=256, max_epochs=max_epochs, holdout_ratio=0.2, max_t=self._max_model_t)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py", line 405, in _train_model
+    model_metrics = self._model.train(train_inputs, train_outputs, **kwargs)
+  File "/rds/user/ajc348/hpc-work/mopo/mopo/models/bnn.py", line 426, in train
+    feed_dict={self.sy_train_in: inputs[batch_idxs], self.sy_train_targ: targets[batch_idxs]}
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 950, in run
+    run_metadata_ptr)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1173, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1350, in _do_run
+    run_metadata)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1370, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InternalError: Blas xGEMMBatched launch failed : a.shape=[7,256,23], b.shape=[7,23,200], m=256, n=200, k=23, batch_size=7
+	 [[node BNN_1/MatMul (defined at /mopo/models/fc.py:101) ]]
+
+Errors may have originated from an input operation.
+Input Source operations connected to node BNN_1/MatMul:
+ BNN_1/truediv (defined at /mopo/models/utils.py:96)	
+ BNN/Layer0_mean/FC_weights/read (defined at /mopo/models/fc.py:148)
+
+Original stack trace for 'BNN_1/MatMul':
+  File "/.env/lib/python3.6/site-packages/ray/workers/default_worker.py", line 98, in <module>
+    ray.worker.global_worker.main_loop()
+  File "/.env/lib/python3.6/site-packages/ray/tune/trainable.py", line 151, in train
+    result = self._train()
+  File "/examples/development/main.py", line 85, in _train
+    self._build()
+  File "/examples/development/main.py", line 77, in _build
+    session=self._session)
+  File "/softlearning/algorithms/utils.py", line 48, in get_algorithm_from_variant
+    variant, *args, **algorithm_kwargs, **kwargs)
+  File "/softlearning/algorithms/utils.py", line 29, in create_MOPO_algorithm
+    algorithm = MOPO(*args, **kwargs)
+  File "/mopo/algorithms/mopo.py", line 118, in __init__
+    name=model_name, load_dir=model_load_dir, deterministic=deterministic)
+  File "/mopo/models/constructor.py", line 42, in construct_model
+    model.finalize(tf.train.AdamOptimizer, {"learning_rate": 0.001})
+  File "/mopo/models/bnn.py", line 243, in finalize
+    train_loss = tf.reduce_sum(self._compile_losses(self.sy_train_in, self.sy_train_targ, inc_var_loss=True))
+  File "/mopo/models/bnn.py", line 684, in _compile_losses
+    mean, log_var = self._compile_outputs(inputs, ret_log_var=True)
+  File "/mopo/models/bnn.py", line 655, in _compile_outputs
+    mean = layer.compute_output_tensor(mean)
+  File "/mopo/models/fc.py", line 101, in compute_output_tensor
+    raw_output = tf.matmul(input_tensor, weights) + self.biases
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/util/dispatch.py", line 180, in wrapper
+    return target(*args, **kwargs)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/ops/math_ops.py", line 2609, in matmul
+    return batch_mat_mul_fn(a, b, adj_x=adjoint_a, adj_y=adjoint_b, name=name)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/ops/gen_math_ops.py", line 1677, in batch_mat_mul_v2
+    "BatchMatMulV2", x=x, y=y, adj_x=adj_x, adj_y=adj_y, name=name)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "/.env/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2005, in __init__
+    self._traceback = tf_stack.extract_stack()
+
+
+2022-05-11 11:42:27,940	INFO ray_trial_executor.py:187 -- Destroying actor for trial seed:4528. If your trainable is slow to initialize, consider setting reuse_actors=True to reduce actor creation overheads.
+2022-05-11 11:42:27,942	INFO trial_runner.py:524 -- Attempting to recover trial state from last checkpoint.
+
+Aborted!
+== Status ==
+Using FIFO scheduling algorithm.
+Resources requested: 0/128 CPUs, 0/4 GPUs
+Memory usage on this node: 21.3/1081.5 GB
+
+== Status ==
+Using FIFO scheduling algorithm.
+Resources requested: 128/128 CPUs, 4.0/4 GPUs
+Memory usage on this node: 21.4/1081.5 GB
+Result logdir: ./ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3
+Number of trials: 1 ({'RUNNING': 1})
+RUNNING trials:
+ - seed:4528:	RUNNING
+
+[2m[36m(pid=823094)[0m Warning: Flow failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+[2m[36m(pid=823094)[0m No module named 'flow'
+[2m[36m(pid=823094)[0m Warning: CARLA failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+[2m[36m(pid=823094)[0m No module named 'carla'
+[2m[36m(pid=823094)[0m WARNING: Logging before flag parsing goes to stderr.
+[2m[36m(pid=823094)[0m W0511 11:33:32.415328 140262987286336 lazy_loader.py:50] 
+[2m[36m(pid=823094)[0m The TensorFlow contrib module will not be included in TensorFlow 2.0.
+[2m[36m(pid=823094)[0m For more information, please see:
+[2m[36m(pid=823094)[0m   * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+[2m[36m(pid=823094)[0m   * https://github.com/tensorflow/addons
+[2m[36m(pid=823094)[0m   * https://github.com/tensorflow/io (for I/O related ops)
+[2m[36m(pid=823094)[0m If you depend on functionality not listed there, please file an issue.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m W0511 11:33:32.437400 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/softlearning/misc/utils.py:43: The name tf.set_random_seed is deprecated. Please use tf.compat.v1.set_random_seed instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m W0511 11:33:32.438046 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:29: The name tf.GPUOptions is deprecated. Please use tf.compat.v1.GPUOptions instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m W0511 11:33:32.438133 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:30: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m W0511 11:33:32.438212 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:30: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:32.438478: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:32.453116: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+[2m[36m(pid=823094)[0m Using seed 4528
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.286152: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55d081893d10 executing computations on platform CUDA. Devices:
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.286192: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.286198: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (1): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.286202: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (2): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.286206: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (3): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.300635: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2445315000 Hz
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.309042: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55d084e053f0 executing computations on platform Host. Devices:
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.309066: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.315718: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+[2m[36m(pid=823094)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823094)[0m pciBusID: 0000:c1:00.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.316875: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+[2m[36m(pid=823094)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823094)[0m pciBusID: 0000:81:00.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.318013: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+[2m[36m(pid=823094)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823094)[0m pciBusID: 0000:41:00.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.319128: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 3 with properties: 
+[2m[36m(pid=823094)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823094)[0m pciBusID: 0000:01:00.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.319828: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.321005: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.322193: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.322719: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.323926: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.324924: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.327120: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.335943: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2, 3
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.335980: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.340341: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.340352: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 3 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.340361: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N Y Y Y 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.340365: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   Y N Y Y 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.340368: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   Y Y N Y 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.340371: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 3:   Y Y Y N 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.345977: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 75769 MB memory) -> physical GPU (device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:c1:00.0, compute capability: 8.0)
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.347472: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 75837 MB memory) -> physical GPU (device: 1, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:81:00.0, compute capability: 8.0)
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.348930: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 75837 MB memory) -> physical GPU (device: 2, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:41:00.0, compute capability: 8.0)
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:33.350518: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 75735 MB memory) -> physical GPU (device: 3, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:01:00.0, compute capability: 8.0)
+[2m[36m(pid=823094)[0m W0511 11:33:33.359585 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:31: The name tf.keras.backend.set_session is deprecated. Please use tf.compat.v1.keras.backend.set_session instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m W0511 11:33:33.359775 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:32: The name tf.keras.backend.get_session is deprecated. Please use tf.compat.v1.keras.backend.get_session instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+[2m[36m(pid=823094)[0m   warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+[2m[36m(pid=823094)[0m W0511 11:33:33.383950 140262987286336 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823094)[0m Instructions for updating:
+[2m[36m(pid=823094)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823094)[0m W0511 11:33:33.831107 140262987286336 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/softlearning/policies/gaussian_policy.py:133: ConditionalTransformedDistribution.__new__ (from tensorflow_probability.python.distributions.transformed_distribution) is deprecated and will be removed after 2019-07-01.
+[2m[36m(pid=823094)[0m Instructions for updating:
+[2m[36m(pid=823094)[0m `ConditionalTransformedDistribution` is no longer required; `TransformedDistribution` top-level functions now pass-through `**kwargs`.
+[2m[36m(pid=823094)[0m W0511 11:33:34.050197 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/softlearning/policies/uniform_policy.py:34: The name tf.log is deprecated. Please use tf.math.log instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.214830: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+[2m[36m(pid=823094)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823094)[0m pciBusID: 0000:c1:00.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.216136: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+[2m[36m(pid=823094)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823094)[0m pciBusID: 0000:81:00.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.217380: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+[2m[36m(pid=823094)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823094)[0m pciBusID: 0000:41:00.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.218611: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 3 with properties: 
+[2m[36m(pid=823094)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823094)[0m pciBusID: 0000:01:00.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.218643: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.218659: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.218670: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.218681: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.218691: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.218700: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.218711: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.227710: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2, 3
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.227767: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.227772: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 3 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.227777: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N Y Y Y 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.227781: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   Y N Y Y 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.227784: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   Y Y N Y 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.227786: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 3:   Y Y Y N 
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.233555: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 75769 MB memory) -> physical GPU (device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:c1:00.0, compute capability: 8.0)
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.234691: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 75837 MB memory) -> physical GPU (device: 1, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:81:00.0, compute capability: 8.0)
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.235821: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 75837 MB memory) -> physical GPU (device: 2, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:41:00.0, compute capability: 8.0)
+[2m[36m(pid=823094)[0m 2022-05-11 11:33:34.236953: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 75735 MB memory) -> physical GPU (device: 3, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:01:00.0, compute capability: 8.0)
+[2m[36m(pid=823094)[0m W0511 11:33:34.237367 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/mopo/models/constructor.py:42: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m [ BNN ] Name BNN | Observation dim 17 | Action dim: 6 | Hidden dim: 200
+[2m[36m(pid=823094)[0m [ BNN ] Initializing model: BNN | 7 networks | 5 elites
+[2m[36m(pid=823094)[0m Created an ensemble of 7 neural networks with variance predictions | Elites: 5
+[2m[36m(pid=823094)[0m [ BNN ] Training non-linear model | Obs: 17 | Act: 6 | Rew: 1
+[2m[36m(pid=823094)[0m Added layer with input dim 23 , output dim 200
+[2m[36m(pid=823094)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823094)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823094)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823094)[0m Added layer with input dim 200 , output dim 18
+[2m[36m(pid=823094)[0m Added layer with input dim 200 , output dim 18
+[2m[36m(pid=823094)[0m W0511 11:34:44.994515 140262987286336 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:97: calling GlorotUniform.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823094)[0m Instructions for updating:
+[2m[36m(pid=823094)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823094)[0m W0511 11:34:44.994951 140262987286336 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:97: calling Zeros.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823094)[0m Instructions for updating:
+[2m[36m(pid=823094)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823094)[0m [ BNN ] Model: <mopo.models.bnn.BNN object at 0x7f8b9c1b4240>
+[2m[36m(pid=823094)[0m [ Writer ] Log dir: /rds/user/ajc348/hpc-work/mopo/ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77
+[2m[36m(pid=823094)[0m W0511 11:34:45.065265 140262987286336 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/training/training_util.py:236: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+[2m[36m(pid=823094)[0m Instructions for updating:
+[2m[36m(pid=823094)[0m Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+[2m[36m(pid=823094)[0m [ MOPO ] Target entropy: -3
+[2m[36m(pid=823094)[0m W0511 11:34:45.583023 140262987286336 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+[2m[36m(pid=823094)[0m Instructions for updating:
+[2m[36m(pid=823094)[0m Use tf.where in 2.0, which has the same broadcast rule as np.where
+[2m[36m(pid=823094)[0m W0511 11:34:45.849860 140262987286336 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py:579: The name tf.losses.mean_squared_error is deprecated. Please use tf.compat.v1.losses.mean_squared_error instead.
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+[2m[36m(pid=823094)[0m   warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+[2m[36m(pid=823094)[0m [ mbpo/off_policy ] Replay pool has size: 100899
+[2m[36m(pid=823094)[0m [ MOPO ] Starting with pool size: 100899
+[2m[36m(pid=823094)[0m [ MOPO ] log_dir: /rds/user/ajc348/hpc-work/mopo/ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77 | ratio: 0.05
+[2m[36m(pid=823094)[0m [ MOPO ] Training model at epoch 0 | freq 1000 | timestep 0 (total: 0)
+[2m[36m(pid=823094)[0m W0511 11:34:50.177593 140262987286336 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/mopo/models/utils.py:83: Variable.load (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+[2m[36m(pid=823094)[0m Instructions for updating:
+[2m[36m(pid=823094)[0m Prefer Variable.assign which has equivalent behavior in 2.X.
+[2m[36m(pid=823094)[0m [ BNN ] Training (99899, 23) | Holdout: (7, 1000, 23)
+[2m[36m(pid=823094)[0m 
+[2m[36m(pid=823094)[0m 2022-05-11 11:34:50.475240: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823094)[0m 2022-05-11 11:36:13.911168: E tensorflow/stream_executor/cuda/cuda_blas.cc:428] failed to run cuBLAS routine: CUBLAS_STATUS_EXECUTION_FAILED
+[2m[36m(pid=823094)[0m 2022-05-11 11:36:13.911224: E tensorflow/stream_executor/cuda/cuda_blas.cc:2301] Internal: failed BLAS call, see log for details
+== Status ==
+Using FIFO scheduling algorithm.
+Resources requested: 128/128 CPUs, 4.0/4 GPUs
+Memory usage on this node: 22.8/1081.5 GB
+Result logdir: ./ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3
+Number of trials: 1 ({'RUNNING': 1})
+RUNNING trials:
+ - seed:4528:	RUNNING, 1 failures: ./ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77/error_2022-05-11_11-36-13.txt
+
+[2m[36m(pid=823328)[0m Warning: Flow failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+[2m[36m(pid=823328)[0m No module named 'flow'
+[2m[36m(pid=823328)[0m Warning: CARLA failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+[2m[36m(pid=823328)[0m No module named 'carla'
+[2m[36m(pid=823328)[0m WARNING: Logging before flag parsing goes to stderr.
+[2m[36m(pid=823328)[0m W0511 11:36:18.636388 140694127765312 lazy_loader.py:50] 
+[2m[36m(pid=823328)[0m The TensorFlow contrib module will not be included in TensorFlow 2.0.
+[2m[36m(pid=823328)[0m For more information, please see:
+[2m[36m(pid=823328)[0m   * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+[2m[36m(pid=823328)[0m   * https://github.com/tensorflow/addons
+[2m[36m(pid=823328)[0m   * https://github.com/tensorflow/io (for I/O related ops)
+[2m[36m(pid=823328)[0m If you depend on functionality not listed there, please file an issue.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m W0511 11:36:18.659344 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/softlearning/misc/utils.py:43: The name tf.set_random_seed is deprecated. Please use tf.compat.v1.set_random_seed instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m W0511 11:36:18.659978 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:29: The name tf.GPUOptions is deprecated. Please use tf.compat.v1.GPUOptions instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m W0511 11:36:18.660064 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:30: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m W0511 11:36:18.660145 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:30: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:18.660387: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:18.672983: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+[2m[36m(pid=823328)[0m Using seed 4528
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.813741: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55e3c759f9c0 executing computations on platform CUDA. Devices:
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.813778: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.813783: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (1): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.813786: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (2): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.813789: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (3): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.827652: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2445315000 Hz
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.834389: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55e3c7953040 executing computations on platform Host. Devices:
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.834419: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.841041: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+[2m[36m(pid=823328)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823328)[0m pciBusID: 0000:01:00.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.842201: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+[2m[36m(pid=823328)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823328)[0m pciBusID: 0000:41:00.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.843325: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+[2m[36m(pid=823328)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823328)[0m pciBusID: 0000:81:00.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.844431: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 3 with properties: 
+[2m[36m(pid=823328)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823328)[0m pciBusID: 0000:c1:00.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.845157: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.846370: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.847522: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.848125: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.849403: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.850473: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.853275: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.862089: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2, 3
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.862125: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.866475: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.866486: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 3 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.866495: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N Y Y Y 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.866499: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   Y N Y Y 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.866502: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   Y Y N Y 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.866505: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 3:   Y Y Y N 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.872125: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 76622 MB memory) -> physical GPU (device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:01:00.0, compute capability: 8.0)
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.873718: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 76622 MB memory) -> physical GPU (device: 1, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:41:00.0, compute capability: 8.0)
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.875171: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 76622 MB memory) -> physical GPU (device: 2, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:81:00.0, compute capability: 8.0)
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:19.876570: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 76622 MB memory) -> physical GPU (device: 3, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:c1:00.0, compute capability: 8.0)
+[2m[36m(pid=823328)[0m W0511 11:36:19.885971 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:31: The name tf.keras.backend.set_session is deprecated. Please use tf.compat.v1.keras.backend.set_session instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m W0511 11:36:19.886145 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:32: The name tf.keras.backend.get_session is deprecated. Please use tf.compat.v1.keras.backend.get_session instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+[2m[36m(pid=823328)[0m   warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+[2m[36m(pid=823328)[0m W0511 11:36:19.916520 140694127765312 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823328)[0m Instructions for updating:
+[2m[36m(pid=823328)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823328)[0m W0511 11:36:20.379706 140694127765312 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/softlearning/policies/gaussian_policy.py:133: ConditionalTransformedDistribution.__new__ (from tensorflow_probability.python.distributions.transformed_distribution) is deprecated and will be removed after 2019-07-01.
+[2m[36m(pid=823328)[0m Instructions for updating:
+[2m[36m(pid=823328)[0m `ConditionalTransformedDistribution` is no longer required; `TransformedDistribution` top-level functions now pass-through `**kwargs`.
+[2m[36m(pid=823328)[0m W0511 11:36:20.625389 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/softlearning/policies/uniform_policy.py:34: The name tf.log is deprecated. Please use tf.math.log instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.796185: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+[2m[36m(pid=823328)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823328)[0m pciBusID: 0000:01:00.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.797477: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+[2m[36m(pid=823328)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823328)[0m pciBusID: 0000:41:00.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.798727: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+[2m[36m(pid=823328)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823328)[0m pciBusID: 0000:81:00.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.799952: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 3 with properties: 
+[2m[36m(pid=823328)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823328)[0m pciBusID: 0000:c1:00.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.799983: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.799998: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.800009: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.800020: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.800030: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.800039: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.800050: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.808862: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2, 3
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.808938: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.808944: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 3 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.808949: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N Y Y Y 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.808952: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   Y N Y Y 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.808955: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   Y Y N Y 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.808958: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 3:   Y Y Y N 
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.814587: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 76622 MB memory) -> physical GPU (device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:01:00.0, compute capability: 8.0)
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.815745: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 76622 MB memory) -> physical GPU (device: 1, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:41:00.0, compute capability: 8.0)
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.816882: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 76622 MB memory) -> physical GPU (device: 2, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:81:00.0, compute capability: 8.0)
+[2m[36m(pid=823328)[0m 2022-05-11 11:36:20.818009: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 76622 MB memory) -> physical GPU (device: 3, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:c1:00.0, compute capability: 8.0)
+[2m[36m(pid=823328)[0m W0511 11:36:20.818408 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/mopo/models/constructor.py:42: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m [ BNN ] Name BNN | Observation dim 17 | Action dim: 6 | Hidden dim: 200
+[2m[36m(pid=823328)[0m [ BNN ] Initializing model: BNN | 7 networks | 5 elites
+[2m[36m(pid=823328)[0m Created an ensemble of 7 neural networks with variance predictions | Elites: 5
+[2m[36m(pid=823328)[0m [ BNN ] Training non-linear model | Obs: 17 | Act: 6 | Rew: 1
+[2m[36m(pid=823328)[0m Added layer with input dim 23 , output dim 200
+[2m[36m(pid=823328)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823328)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823328)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823328)[0m Added layer with input dim 200 , output dim 18
+[2m[36m(pid=823328)[0m Added layer with input dim 200 , output dim 18
+[2m[36m(pid=823328)[0m W0511 11:38:43.151758 140694127765312 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:97: calling GlorotUniform.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823328)[0m Instructions for updating:
+[2m[36m(pid=823328)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823328)[0m W0511 11:38:43.152177 140694127765312 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:97: calling Zeros.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823328)[0m Instructions for updating:
+[2m[36m(pid=823328)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823328)[0m W0511 11:38:43.222310 140694127765312 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/training/training_util.py:236: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+[2m[36m(pid=823328)[0m Instructions for updating:
+[2m[36m(pid=823328)[0m Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+[2m[36m(pid=823328)[0m [ BNN ] Model: <mopo.models.bnn.BNN object at 0x7ff04c30c320>
+[2m[36m(pid=823328)[0m [ Writer ] Log dir: /rds/user/ajc348/hpc-work/mopo/ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77
+[2m[36m(pid=823328)[0m [ MOPO ] Target entropy: -3
+[2m[36m(pid=823328)[0m W0511 11:38:43.744077 140694127765312 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+[2m[36m(pid=823328)[0m Instructions for updating:
+[2m[36m(pid=823328)[0m Use tf.where in 2.0, which has the same broadcast rule as np.where
+[2m[36m(pid=823328)[0m W0511 11:38:44.012090 140694127765312 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py:579: The name tf.losses.mean_squared_error is deprecated. Please use tf.compat.v1.losses.mean_squared_error instead.
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+[2m[36m(pid=823328)[0m   warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+[2m[36m(pid=823328)[0m [ mbpo/off_policy ] Replay pool has size: 100899
+[2m[36m(pid=823328)[0m [ MOPO ] Starting with pool size: 100899
+[2m[36m(pid=823328)[0m W0511 11:38:48.264834 140694127765312 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/mopo/models/utils.py:83: Variable.load (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+[2m[36m(pid=823328)[0m Instructions for updating:
+[2m[36m(pid=823328)[0m Prefer Variable.assign which has equivalent behavior in 2.X.
+[2m[36m(pid=823328)[0m [ MOPO ] log_dir: /rds/user/ajc348/hpc-work/mopo/ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77 | ratio: 0.05
+[2m[36m(pid=823328)[0m [ MOPO ] Training model at epoch 0 | freq 1000 | timestep 0 (total: 0)
+[2m[36m(pid=823328)[0m [ BNN ] Training (99899, 23) | Holdout: (7, 1000, 23)
+[2m[36m(pid=823328)[0m 
+[2m[36m(pid=823328)[0m 2022-05-11 11:38:48.562157: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823328)[0m 2022-05-11 11:38:50.478583: E tensorflow/stream_executor/cuda/cuda_blas.cc:428] failed to run cuBLAS routine: CUBLAS_STATUS_EXECUTION_FAILED
+[2m[36m(pid=823328)[0m 2022-05-11 11:38:50.478629: E tensorflow/stream_executor/cuda/cuda_blas.cc:2301] Internal: failed BLAS call, see log for details
+== Status ==
+Using FIFO scheduling algorithm.
+Resources requested: 128/128 CPUs, 4.0/4 GPUs
+Memory usage on this node: 23.0/1081.5 GB
+Result logdir: ./ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3
+Number of trials: 1 ({'RUNNING': 1})
+RUNNING trials:
+ - seed:4528:	RUNNING, 2 failures: ./ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77/error_2022-05-11_11-38-50.txt
+
+[2m[36m(pid=823177)[0m Warning: Flow failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+[2m[36m(pid=823177)[0m No module named 'flow'
+[2m[36m(pid=823177)[0m Warning: CARLA failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+[2m[36m(pid=823177)[0m No module named 'carla'
+[2m[36m(pid=823177)[0m WARNING: Logging before flag parsing goes to stderr.
+[2m[36m(pid=823177)[0m W0511 11:38:55.326102 140521689114432 lazy_loader.py:50] 
+[2m[36m(pid=823177)[0m The TensorFlow contrib module will not be included in TensorFlow 2.0.
+[2m[36m(pid=823177)[0m For more information, please see:
+[2m[36m(pid=823177)[0m   * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+[2m[36m(pid=823177)[0m   * https://github.com/tensorflow/addons
+[2m[36m(pid=823177)[0m   * https://github.com/tensorflow/io (for I/O related ops)
+[2m[36m(pid=823177)[0m If you depend on functionality not listed there, please file an issue.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m W0511 11:38:55.350548 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/softlearning/misc/utils.py:43: The name tf.set_random_seed is deprecated. Please use tf.compat.v1.set_random_seed instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m W0511 11:38:55.351359 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:29: The name tf.GPUOptions is deprecated. Please use tf.compat.v1.GPUOptions instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m W0511 11:38:55.351466 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:30: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m W0511 11:38:55.351555 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:30: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:55.351980: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:55.366294: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+[2m[36m(pid=823177)[0m Using seed 4528
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.518775: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5625b93d76a0 executing computations on platform CUDA. Devices:
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.518870: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.518880: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (1): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.518886: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (2): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.518892: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (3): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.532675: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2445315000 Hz
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.539450: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5625ba608d60 executing computations on platform Host. Devices:
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.539485: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.546385: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+[2m[36m(pid=823177)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823177)[0m pciBusID: 0000:c1:00.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.547548: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+[2m[36m(pid=823177)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823177)[0m pciBusID: 0000:81:00.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.548680: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+[2m[36m(pid=823177)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823177)[0m pciBusID: 0000:41:00.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.549791: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 3 with properties: 
+[2m[36m(pid=823177)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823177)[0m pciBusID: 0000:01:00.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.550755: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.552096: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.553318: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.554524: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.555945: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.557104: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.559698: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.568517: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2, 3
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.568556: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.572922: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.572932: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 3 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.572943: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N Y Y Y 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.572946: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   Y N Y Y 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.572949: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   Y Y N Y 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.572952: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 3:   Y Y Y N 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.578561: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 76622 MB memory) -> physical GPU (device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:c1:00.0, compute capability: 8.0)
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.580087: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 76622 MB memory) -> physical GPU (device: 1, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:81:00.0, compute capability: 8.0)
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.581552: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 76622 MB memory) -> physical GPU (device: 2, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:41:00.0, compute capability: 8.0)
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:56.583004: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 76622 MB memory) -> physical GPU (device: 3, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:01:00.0, compute capability: 8.0)
+[2m[36m(pid=823177)[0m W0511 11:38:56.590841 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:31: The name tf.keras.backend.set_session is deprecated. Please use tf.compat.v1.keras.backend.set_session instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m W0511 11:38:56.591019 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:32: The name tf.keras.backend.get_session is deprecated. Please use tf.compat.v1.keras.backend.get_session instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+[2m[36m(pid=823177)[0m   warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+[2m[36m(pid=823177)[0m W0511 11:38:56.622046 140521689114432 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823177)[0m Instructions for updating:
+[2m[36m(pid=823177)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823177)[0m W0511 11:38:57.103893 140521689114432 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/softlearning/policies/gaussian_policy.py:133: ConditionalTransformedDistribution.__new__ (from tensorflow_probability.python.distributions.transformed_distribution) is deprecated and will be removed after 2019-07-01.
+[2m[36m(pid=823177)[0m Instructions for updating:
+[2m[36m(pid=823177)[0m `ConditionalTransformedDistribution` is no longer required; `TransformedDistribution` top-level functions now pass-through `**kwargs`.
+[2m[36m(pid=823177)[0m W0511 11:38:57.374018 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/softlearning/policies/uniform_policy.py:34: The name tf.log is deprecated. Please use tf.math.log instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.545199: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+[2m[36m(pid=823177)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823177)[0m pciBusID: 0000:c1:00.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.546460: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+[2m[36m(pid=823177)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823177)[0m pciBusID: 0000:81:00.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.547706: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+[2m[36m(pid=823177)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823177)[0m pciBusID: 0000:41:00.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.548924: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 3 with properties: 
+[2m[36m(pid=823177)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823177)[0m pciBusID: 0000:01:00.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.548955: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.548969: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.548981: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.548991: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.549001: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.549011: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.549021: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.557820: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2, 3
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.557899: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.557905: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 3 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.557910: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N Y Y Y 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.557913: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   Y N Y Y 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.557916: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   Y Y N Y 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.557919: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 3:   Y Y Y N 
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.563536: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 76622 MB memory) -> physical GPU (device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:c1:00.0, compute capability: 8.0)
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.564683: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 76622 MB memory) -> physical GPU (device: 1, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:81:00.0, compute capability: 8.0)
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.565824: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 76622 MB memory) -> physical GPU (device: 2, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:41:00.0, compute capability: 8.0)
+[2m[36m(pid=823177)[0m 2022-05-11 11:38:57.566968: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 76622 MB memory) -> physical GPU (device: 3, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:01:00.0, compute capability: 8.0)
+[2m[36m(pid=823177)[0m W0511 11:38:57.567389 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/mopo/models/constructor.py:42: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m [ BNN ] Name BNN | Observation dim 17 | Action dim: 6 | Hidden dim: 200
+[2m[36m(pid=823177)[0m [ BNN ] Initializing model: BNN | 7 networks | 5 elites
+[2m[36m(pid=823177)[0m Created an ensemble of 7 neural networks with variance predictions | Elites: 5
+[2m[36m(pid=823177)[0m [ BNN ] Training non-linear model | Obs: 17 | Act: 6 | Rew: 1
+[2m[36m(pid=823177)[0m Added layer with input dim 23 , output dim 200
+[2m[36m(pid=823177)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823177)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823177)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823177)[0m Added layer with input dim 200 , output dim 18
+[2m[36m(pid=823177)[0m Added layer with input dim 200 , output dim 18
+[2m[36m(pid=823177)[0m W0511 11:40:59.241655 140521689114432 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:97: calling GlorotUniform.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823177)[0m Instructions for updating:
+[2m[36m(pid=823177)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823177)[0m W0511 11:40:59.242139 140521689114432 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:97: calling Zeros.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823177)[0m Instructions for updating:
+[2m[36m(pid=823177)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823177)[0m [ BNN ] Model: <mopo.models.bnn.BNN object at 0x7fc8380cc320>
+[2m[36m(pid=823177)[0m [ Writer ] Log dir: /rds/user/ajc348/hpc-work/mopo/ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77
+[2m[36m(pid=823177)[0m W0511 11:40:59.313787 140521689114432 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/training/training_util.py:236: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+[2m[36m(pid=823177)[0m Instructions for updating:
+[2m[36m(pid=823177)[0m Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+[2m[36m(pid=823177)[0m [ MOPO ] Target entropy: -3
+[2m[36m(pid=823177)[0m W0511 11:40:59.839291 140521689114432 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+[2m[36m(pid=823177)[0m Instructions for updating:
+[2m[36m(pid=823177)[0m Use tf.where in 2.0, which has the same broadcast rule as np.where
+[2m[36m(pid=823177)[0m W0511 11:41:00.108669 140521689114432 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/mopo/algorithms/mopo.py:579: The name tf.losses.mean_squared_error is deprecated. Please use tf.compat.v1.losses.mean_squared_error instead.
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+[2m[36m(pid=823177)[0m   warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+[2m[36m(pid=823177)[0m [ mbpo/off_policy ] Replay pool has size: 100899
+[2m[36m(pid=823177)[0m [ MOPO ] Starting with pool size: 100899
+[2m[36m(pid=823177)[0m W0511 11:41:04.411314 140521689114432 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/mopo/models/utils.py:83: Variable.load (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+[2m[36m(pid=823177)[0m Instructions for updating:
+[2m[36m(pid=823177)[0m Prefer Variable.assign which has equivalent behavior in 2.X.
+[2m[36m(pid=823177)[0m [ MOPO ] log_dir: /rds/user/ajc348/hpc-work/mopo/ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77 | ratio: 0.05
+[2m[36m(pid=823177)[0m [ MOPO ] Training model at epoch 0 | freq 1000 | timestep 0 (total: 0)
+[2m[36m(pid=823177)[0m [ BNN ] Training (99899, 23) | Holdout: (7, 1000, 23)
+[2m[36m(pid=823177)[0m 
+[2m[36m(pid=823177)[0m 2022-05-11 11:41:04.706132: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+== Status ==
+Using FIFO scheduling algorithm.
+Resources requested: 128/128 CPUs, 4.0/4 GPUs
+Memory usage on this node: 22.8/1081.5 GB
+Result logdir: ./ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3
+Number of trials: 1 ({'RUNNING': 1})
+RUNNING trials:
+ - seed:4528:	RUNNING, 3 failures: ./ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:4528_2022-05-11_11-33-26qa5ivz77/error_2022-05-11_11-42-27.txt
+
+[2m[36m(pid=823177)[0m 2022-05-11 11:42:27.917734: E tensorflow/stream_executor/cuda/cuda_blas.cc:428] failed to run cuBLAS routine: CUBLAS_STATUS_EXECUTION_FAILED
+[2m[36m(pid=823177)[0m 2022-05-11 11:42:27.917788: E tensorflow/stream_executor/cuda/cuda_blas.cc:2301] Internal: failed BLAS call, see log for details
+[2m[36m(pid=823178)[0m Warning: Flow failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+[2m[36m(pid=823178)[0m No module named 'flow'
+[2m[36m(pid=823178)[0m Warning: CARLA failed to import. Set the environment variable D4RL_SUPPRESS_IMPORT_ERROR=1 to suppress this message.
+[2m[36m(pid=823178)[0m No module named 'carla'
+[2m[36m(pid=823178)[0m WARNING: Logging before flag parsing goes to stderr.
+[2m[36m(pid=823178)[0m W0511 11:42:32.731680 140427064919872 lazy_loader.py:50] 
+[2m[36m(pid=823178)[0m The TensorFlow contrib module will not be included in TensorFlow 2.0.
+[2m[36m(pid=823178)[0m For more information, please see:
+[2m[36m(pid=823178)[0m   * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+[2m[36m(pid=823178)[0m   * https://github.com/tensorflow/addons
+[2m[36m(pid=823178)[0m   * https://github.com/tensorflow/io (for I/O related ops)
+[2m[36m(pid=823178)[0m If you depend on functionality not listed there, please file an issue.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m W0511 11:42:32.754800 140427064919872 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/softlearning/misc/utils.py:43: The name tf.set_random_seed is deprecated. Please use tf.compat.v1.set_random_seed instead.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m W0511 11:42:32.755414 140427064919872 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:29: The name tf.GPUOptions is deprecated. Please use tf.compat.v1.GPUOptions instead.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m W0511 11:42:32.755499 140427064919872 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:30: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m W0511 11:42:32.755574 140427064919872 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:30: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:32.755811: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+[2m[36m(pid=823178)[0m Using seed 4528
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:32.769294: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.904976: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5594c10c0730 executing computations on platform CUDA. Devices:
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.905015: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.905021: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (1): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.905026: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (2): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.905029: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (3): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.918638: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2445315000 Hz
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.927746: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5594c46622e0 executing computations on platform Host. Devices:
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.927766: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.934337: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+[2m[36m(pid=823178)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823178)[0m pciBusID: 0000:01:00.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.935500: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+[2m[36m(pid=823178)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823178)[0m pciBusID: 0000:41:00.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.936630: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+[2m[36m(pid=823178)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823178)[0m pciBusID: 0000:81:00.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.937739: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 3 with properties: 
+[2m[36m(pid=823178)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823178)[0m pciBusID: 0000:c1:00.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.940889: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.943830: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.946650: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.949218: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.953683: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.958191: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.962625: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.971691: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2, 3
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.971731: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.976181: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.976193: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 3 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.976205: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N Y Y Y 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.976209: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   Y N Y Y 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.976212: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   Y Y N Y 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.976215: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 3:   Y Y Y N 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.981919: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 76622 MB memory) -> physical GPU (device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:01:00.0, compute capability: 8.0)
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.983570: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 76622 MB memory) -> physical GPU (device: 1, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:41:00.0, compute capability: 8.0)
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.985075: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 76622 MB memory) -> physical GPU (device: 2, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:81:00.0, compute capability: 8.0)
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:33.986557: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 76622 MB memory) -> physical GPU (device: 3, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:c1:00.0, compute capability: 8.0)
+[2m[36m(pid=823178)[0m W0511 11:42:33.996034 140427064919872 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:31: The name tf.keras.backend.set_session is deprecated. Please use tf.compat.v1.keras.backend.set_session instead.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m W0511 11:42:33.996248 140427064919872 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/examples/development/main.py:32: The name tf.keras.backend.get_session is deprecated. Please use tf.compat.v1.keras.backend.get_session instead.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/gym/logger.py:30: UserWarning: [33mWARN: Box bound precision lowered by casting to float32[0m
+[2m[36m(pid=823178)[0m   warnings.warn(colorize('%s: %s'%('WARN', msg % args), 'yellow'))
+[2m[36m(pid=823178)[0m W0511 11:42:34.025864 140427064919872 deprecation.py:506] From /rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+[2m[36m(pid=823178)[0m Instructions for updating:
+[2m[36m(pid=823178)[0m Call initializer instance with the dtype argument instead of passing it to the constructor
+[2m[36m(pid=823178)[0m W0511 11:42:34.494971 140427064919872 deprecation.py:323] From /rds/user/ajc348/hpc-work/mopo/softlearning/policies/gaussian_policy.py:133: ConditionalTransformedDistribution.__new__ (from tensorflow_probability.python.distributions.transformed_distribution) is deprecated and will be removed after 2019-07-01.
+[2m[36m(pid=823178)[0m Instructions for updating:
+[2m[36m(pid=823178)[0m `ConditionalTransformedDistribution` is no longer required; `TransformedDistribution` top-level functions now pass-through `**kwargs`.
+[2m[36m(pid=823178)[0m W0511 11:42:34.747562 140427064919872 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/softlearning/policies/uniform_policy.py:34: The name tf.log is deprecated. Please use tf.math.log instead.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.916517: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+[2m[36m(pid=823178)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823178)[0m pciBusID: 0000:01:00.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.917784: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+[2m[36m(pid=823178)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823178)[0m pciBusID: 0000:41:00.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.919012: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+[2m[36m(pid=823178)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823178)[0m pciBusID: 0000:81:00.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.920223: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 3 with properties: 
+[2m[36m(pid=823178)[0m name: NVIDIA A100-SXM4-80GB major: 8 minor: 0 memoryClockRate(GHz): 1.41
+[2m[36m(pid=823178)[0m pciBusID: 0000:c1:00.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.920255: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.920270: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.920281: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.920292: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.920303: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.920312: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.920323: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.929125: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2, 3
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.929202: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.929208: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 3 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.929213: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N Y Y Y 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.929216: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   Y N Y Y 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.929219: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   Y Y N Y 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.929222: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 3:   Y Y Y N 
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.934865: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 76622 MB memory) -> physical GPU (device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:01:00.0, compute capability: 8.0)
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.936016: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 76622 MB memory) -> physical GPU (device: 1, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:41:00.0, compute capability: 8.0)
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.937151: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 76622 MB memory) -> physical GPU (device: 2, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:81:00.0, compute capability: 8.0)
+[2m[36m(pid=823178)[0m 2022-05-11 11:42:34.938270: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:3 with 76622 MB memory) -> physical GPU (device: 3, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:c1:00.0, compute capability: 8.0)
+[2m[36m(pid=823178)[0m W0511 11:42:34.938719 140427064919872 deprecation_wrapper.py:119] From /rds/user/ajc348/hpc-work/mopo/mopo/models/constructor.py:42: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+[2m[36m(pid=823178)[0m 
+[2m[36m(pid=823178)[0m [ BNN ] Name BNN | Observation dim 17 | Action dim: 6 | Hidden dim: 200
+[2m[36m(pid=823178)[0m [ BNN ] Initializing model: BNN | 7 networks | 5 elites
+[2m[36m(pid=823178)[0m Created an ensemble of 7 neural networks with variance predictions | Elites: 5
+[2m[36m(pid=823178)[0m [ BNN ] Training non-linear model | Obs: 17 | Act: 6 | Rew: 1
+[2m[36m(pid=823178)[0m Added layer with input dim 23 , output dim 200
+[2m[36m(pid=823178)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823178)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823178)[0m Added layer with input dim 200 , output dim 200
+[2m[36m(pid=823178)[0m Added layer with input dim 200 , output dim 18
+[2m[36m(pid=823178)[0m Added layer with input dim 200 , output dim 18
+2022-05-11 11:42:44,410	WARNING worker.py:204 -- Calling ray.get or ray.wait in a separate thread may lead to deadlock if the main thread blocks on this thread and there are not enough resources to execute more tasks
+Exception ignored in: <bound method ActorHandle.__del__ of Actor(ExperimentRunner, b06806caca3c3111d264e9db07d33402b8e0522e)>
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/actor.py", line 627, in __del__
+    self.__ray_terminate__.remote()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/actor.py", line 149, in remote
+    return self._remote(args, kwargs)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/actor.py", line 170, in _remote
+    return invocation(args, kwargs)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/actor.py", line 164, in invocation
+    num_return_vals=num_return_vals)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/actor.py", line 554, in _actor_method_call
+Exception in thread ray_import_thread:
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 184, in _read_from_socket
+    raise socket.error(SERVER_CLOSED_CONNECTION_ERROR)
+OSError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2952, in _execute
+    return command(*args)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 636, in read_response
+    raise e
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 633, in read_response
+    response = self._parser.read_response()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 291, in read_response
+    response = self._buffer.readline()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 223, in readline
+    self._read_from_socket()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 198, in _read_from_socket
+    (e.args,))
+redis.exceptions.ConnectionError: Error while reading from socket: ('Connection closed by server.',)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 493, in connect
+    sock = self._connect()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 550, in _connect
+    raise err
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 538, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/import_thread.py", line 69, in _run
+    msg = import_pubsub_client.get_message()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 3057, in get_message
+    response = self.parse_response(block=False, timeout=timeout)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2974, in parse_response
+    return self._execute(connection, connection.read_response)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2959, in _execute
+    connection.connect()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 498, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 10.43.74.38:40296. Connection refused.
+
+    driver_id=self._ray_actor_driver_id,
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/worker.py", line 700, in submit_task
+Exception in thread ray_print_logs:
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 184, in _read_from_socket
+    raise socket.error(SERVER_CLOSED_CONNECTION_ERROR)
+OSError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2952, in _execute
+    return command(*args)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 636, in read_response
+    raise e
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 633, in read_response
+    response = self._parser.read_response()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 291, in read_response
+    response = self._buffer.readline()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 223, in readline
+    self._read_from_socket()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 198, in _read_from_socket
+    (e.args,))
+redis.exceptions.ConnectionError: Error while reading from socket: ('Connection closed by server.',)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 493, in connect
+    sock = self._connect()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 550, in _connect
+    raise err
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 538, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/worker.py", line 1544, in print_logs
+    msg = pubsub_client.get_message()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 3057, in get_message
+    response = self.parse_response(block=False, timeout=timeout)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2974, in parse_response
+    return self._execute(connection, connection.read_response)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2959, in _execute
+    connection.connect()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 498, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 10.43.74.38:40296. Connection refused.
+
+    self.raylet_client.submit_task(task)
+  File "python/ray/_raylet.pyx", line 236, in ray._raylet.RayletClient.submit_task
+  File "python/ray/_raylet.pyx", line 60, in ray._raylet.check_status
+Exception: [RayletClient] Connection closed unexpectedly.
+Exception in thread ray_listen_error_messages:
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 184, in _read_from_socket
+    raise socket.error(SERVER_CLOSED_CONNECTION_ERROR)
+OSError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2952, in _execute
+    return command(*args)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 636, in read_response
+    raise e
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 633, in read_response
+    response = self._parser.read_response()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 291, in read_response
+    response = self._buffer.readline()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 223, in readline
+    self._read_from_socket()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 198, in _read_from_socket
+    (e.args,))
+redis.exceptions.ConnectionError: Error while reading from socket: ('Connection closed by server.',)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 493, in connect
+    sock = self._connect()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 550, in _connect
+    raise err
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 538, in _connect
+    sock.connect(socket_address)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/ray/worker.py", line 1646, in listen_error_messages_raylet
+    msg = worker.error_message_pubsub_client.get_message()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 3057, in get_message
+    response = self.parse_response(block=False, timeout=timeout)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2974, in parse_response
+    return self._execute(connection, connection.read_response)
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/client.py", line 2959, in _execute
+    connection.connect()
+  File "/rds/user/ajc348/hpc-work/mopo/.env/lib/python3.6/site-packages/redis/connection.py", line 498, in connect
+    raise ConnectionError(self._error_message(e))
+redis.exceptions.ConnectionError: Error 111 connecting to 10.43.74.38:40296. Connection refused.
+

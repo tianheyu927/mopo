@@ -124,3 +124,6 @@ vendor/*
 
 .env/
 ray_mopo/
+slurm_logs/
+machine.file.*
+slurm-*out
