@@ -1,0 +1,88 @@
+#!/bin/bash
+#SBATCH -J mopo
+#SBATCH -A KRUEGER-SL2-CPU
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --array=1-3
+#SBATCH --time=01:00:00
+#SBATCH --mail-type=FAIL
+#! Uncomment this to prevent the job from being requeued (e.g. if
+#! interrupted by node failure or system downtime):
+##SBATCH --no-requeue
+#SBATCH -p icelake
+
+#! Number of nodes and tasks per node allocated by SLURM (do not change):
+numnodes=$SLURM_JOB_NUM_NODES
+numtasks=$SLURM_NTASKS
+mpi_tasks_per_node=$(echo "$SLURM_TASKS_PER_NODE" | sed -e  's/^\([0-9][0-9]*\).*$/\1/')
+#! ############################################################
+#! Modify the settings below to specify the application's environment, location 
+#! and launch method:
+
+#! Optionally modify the environment seen by the application
+#! (note that SLURM reproduces the environment at submission irrespective of ~/.bashrc):
+. /etc/profile.d/modules.sh                # Leave this line (enables the module command)
+module purge                               # Removes all modules still loaded
+module load rhel8/default-icl              # REQUIRED - loads the basic environment
+
+#! Insert additional module load commands after this line if needed:
+module load miniconda/3
+source /home/ajc348/rds/hpc-work/mopo/README.mopo.activate
+
+#! Full path to application executable: 
+application="mopo"
+
+#! Run options for the application:
+options="run_local examples.development --config=examples.config.d4rl.halfcheetah_mixed --gpus=1 --trial-gpus=1"
+
+#! Work directory (i.e. where the job will run):
+workdir="$SLURM_SUBMIT_DIR"  # The value of SLURM_SUBMIT_DIR sets workdir to the directory
+                             # in which sbatch is run.
+
+#! Are you using OpenMP (NB this is unrelated to OpenMPI)? If so increase this
+#! safe value to no more than 76:
+export OMP_NUM_THREADS=1
+
+#! Number of MPI tasks to be started by the application per node and in total (do not change):
+np=$[${numnodes}*${mpi_tasks_per_node}]
+
+#! Choose this for a pure shared-memory OpenMP parallel program on a single node:
+#! (OMP_NUM_THREADS threads will be created):
+CMD="$application $options"
+
+#! Choose this for a MPI code (possibly using OpenMP) using OpenMPI:
+#CMD="mpirun -npernode $mpi_tasks_per_node -np $np $application $options"
+
+###############################################################
+### You should not have to change anything below this line ####
+###############################################################
+
+JOBID=$SLURM_JOB_ID
+LOG=slurm_logs/train-log.$JOBID
+ERR=slurm_logs/train-err.$JOBID
+
+echo "Initialising..." > $LOG
+
+cd $workdir
+echo -e "Changed directory to `pwd`.\n" >> $LOG
+
+echo -e "JobID: $JOBID\n======" >> $LOG
+echo "Time: `date`" >> $LOG
+echo "Running on master node: `hostname`" >> $LOG
+echo "Current directory: `pwd`" >> $LOG
+
+if [ "$SLURM_JOB_NODELIST" ]; then
+        #! Create a machine file:
+        export NODEFILE=`generate_pbs_nodefile`
+        cat $NODEFILE | uniq > machine.file.$JOBID
+        echo -e "\nNodes allocated:\n================" >> $LOG
+        echo `cat machine.file.$JOBID | sed -e 's/\..*$//g'` >> $LOG
+fi
+
+echo -e "\nnumtasks=$numtasks, numnodes=$numnodes, mpi_tasks_per_node=$mpi_tasks_per_node (OMP_NUM_THREADS=$OMP_NUM_THREADS)" >> $LOG
+
+echo -e "\nExecuting command:\n==================\n$CMD\n" >> $LOG
+
+eval $CMD >> $LOG
+
+echo "Time: `date`" >> $LOG
