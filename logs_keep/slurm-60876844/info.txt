@@ -1,1 +1,4 @@
 First successful run using the wilkes2 cluster.
+
+Corresponds to the following results:
+ray_mopo/halfcheetah/halfcheetah_medium_replay_101e3/seed:1443_2022-05-11_12-43-30uimp9cp_

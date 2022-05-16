@@ -123,6 +123,7 @@ vendor/*
 .DS_Store
 
 .env/
+.env_jupyter/
 ray_mopo/
 slurm_logs/
 machine.file.*
