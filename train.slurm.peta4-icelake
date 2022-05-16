@@ -3,7 +3,7 @@
 #SBATCH -A KRUEGER-SL2-CPU
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --array=1-3
+##SBATCH --array=1-3
 #SBATCH --time=01:00:00
 #SBATCH --mail-type=FAIL
 #! Uncomment this to prevent the job from being requeued (e.g. if
