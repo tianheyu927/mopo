@@ -1,5 +1,7 @@
 import abc
 
+import numpy as np
+
 
 class ReplayPool(object):
     """A class used to save and replay data."""
@@ -30,6 +32,9 @@ class ReplayPool(object):
 
         :param path: Dict like one outputted by railrl.samplers.util.rollout
         """
+        # Alan: Add policy identifier to the rollout
+        # This will not be used during SAC training
+        path["policies"] = np.zeros((len(path["observations"]), 1))
         self.add_samples(path)
         self.terminate_episode()
 
