@@ -27,6 +27,7 @@ module purge                               # Removes all modules still loaded
 module load rhel8/default-amp              # REQUIRED - loads the basic environment
 
 #! Insert additional module load commands after this line if needed:
+module load cuda/10.0 cudnn/7.4_cuda-10.0
 module load miniconda/3
 source /home/ajc348/rds/hpc-work/mopo/README.mopo.activate
 
