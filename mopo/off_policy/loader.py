@@ -15,8 +15,11 @@ def restore_pool(replay_pool, experiment_root, max_size, save_path=None):
         else:
             try:
                 restore_pool_contiguous(replay_pool, experiment_root)
-            except:
-                restore_pool_bear(replay_pool, experiment_root)
+            except Exception as e:
+                # Do not suppress an exception from restore_pool_contiguous
+                # Expecting that this method should work, and will not be using bear
+                raise e
+                # restore_pool_bear(replay_pool, experiment_root)
     print('[ mbpo/off_policy ] Replay pool has size: {}'.format(replay_pool.size))
 
 
