@@ -1,4 +1,5 @@
 from copy import deepcopy
+from dotmap import DotMap
 
 
 def create_SAC_algorithm(variant, *args, **kwargs):
@@ -44,9 +45,13 @@ def get_algorithm_from_variant(variant,
     algorithm_params = variant['algorithm_params']
     algorithm_type = algorithm_params['type']
     algorithm_kwargs = deepcopy(algorithm_params['kwargs'])
+    
     # TODO Alan: The call to toDict() is only needed for local running
     # Clearly slightly different lib versions are being used
+    if isinstance(algorithm_kwargs, DotMap):
+        algorithm_kwargs = algorithm_kwargs.toDict()
+
     algorithm = ALGORITHM_CLASSES[algorithm_type](
-        variant, *args, **algorithm_kwargs.toDict(), **kwargs)
+        variant, *args, **algorithm_kwargs, **kwargs)
 
     return algorithm

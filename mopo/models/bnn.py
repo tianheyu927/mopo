@@ -61,7 +61,7 @@ class BNN:
 
         # Training objects
         self.optimizer = None
-        self.sy_train_in, self.sy_train_targ = None, None
+        self.sy_train_in, self.sy_train_targ, self.sy_train_pol = None, None, None
         self.train_op, self.mse_loss = None, None
 
         # Prediction objects
@@ -239,14 +239,18 @@ class BNN:
                 self.sy_train_targ = tf.placeholder(dtype=tf.float32,
                                                     shape=[self.num_nets, None, self.layers[-1].get_output_dim()],
                                                     name="training_targets")
+            self.sy_train_pol = tf.placeholder(dtype=tf.float32,
+                                              shape=[self.num_nets, None, 1],
+                                              name="training_policies")
+
             if not self.deterministic:
-                train_loss = tf.reduce_sum(self._compile_losses(self.sy_train_in, self.sy_train_targ, inc_var_loss=True))
+                train_loss = tf.reduce_sum(self._compile_losses(self.sy_train_in, self.sy_train_targ, self.sy_train_pol, inc_var_loss=True))
                 train_loss += tf.add_n(self.decays)
                 train_loss += 0.01 * tf.reduce_sum(self.max_logvar) - 0.01 * tf.reduce_sum(self.min_logvar)
             else:
-                train_loss = self._compile_losses(self.sy_train_in, self.sy_train_targ, inc_var_loss=False)
+                train_loss = self._compile_losses(self.sy_train_in, self.sy_train_targ, self.sy_train_pol, inc_var_loss=False)
                 train_loss += tf.add_n(self.decays)
-            self.mse_loss = self._compile_losses(self.sy_train_in, self.sy_train_targ, inc_var_loss=False)
+            self.mse_loss = self._compile_losses(self.sy_train_in, self.sy_train_targ, self.sy_train_pol, inc_var_loss=False)
             self.train_op = self.optimizer.minimize(train_loss, var_list=self.optvars)
 
         # Initialize all variables
@@ -350,14 +354,15 @@ class BNN:
         if self.separate_mean_var:
             [layer.reset(self.sess) for layer in self.var_layers]
 
-    def validate(self, inputs, targets):
+    def validate(self, inputs, targets, policies):
         inputs = np.tile(inputs[None], [self.num_nets, 1, 1])
         targets = np.tile(targets[None], [self.num_nets, 1, 1])
         losses = self.sess.run(
             self.mse_loss,
             feed_dict={
                 self.sy_train_in: inputs,
-                self.sy_train_targ: targets
+                self.sy_train_targ: targets,
+                self.sy_train_pol: policies,
                 }
         )
         mean_elite_loss = np.sort(losses)[:self.num_elites].mean()
@@ -367,7 +372,7 @@ class BNN:
     # Model Methods #
     #################
 
-    def train(self, inputs, targets,
+    def train(self, inputs, targets, policies,
               batch_size=32, max_epochs=None, max_epochs_since_update=5,
               hide_progress=False, holdout_ratio=0.0, max_logging=1000, max_grad_updates=None, timer=None, max_t=None):
         """Trains/Continues network training
@@ -375,6 +380,8 @@ class BNN:
         Arguments:
             inputs (np.ndarray): Network inputs in the training dataset in rows.
             targets (np.ndarray): Network target outputs in the training dataset in rows corresponding
+                to the rows in inputs.
+            policies (np.ndarray): Policies in the training dataset in rows corresponding
                 to the rows in inputs.
             batch_size (int): The minibatch size to be used for training.
             epochs (int): Number of epochs (full network passes that will be done.
@@ -393,10 +400,14 @@ class BNN:
         # Split into training and holdout sets
         num_holdout = min(int(inputs.shape[0] * holdout_ratio), max_logging)
         permutation = np.random.permutation(inputs.shape[0])
+
         inputs, holdout_inputs = inputs[permutation[num_holdout:]], inputs[permutation[:num_holdout]]
         targets, holdout_targets = targets[permutation[num_holdout:]], targets[permutation[:num_holdout]]
+        policies, holdout_policies = policies[permutation[num_holdout:]], policies[permutation[:num_holdout]]
+        
         holdout_inputs = np.tile(holdout_inputs[None], [self.num_nets, 1, 1])
         holdout_targets = np.tile(holdout_targets[None], [self.num_nets, 1, 1])
+        holdout_policies = np.tile(holdout_policies[None], [self.num_nets, 1, 1])
 
         print('[ BNN ] Training {} | Holdout: {}'.format(inputs.shape, holdout_inputs.shape))
         with self.sess.as_default():
@@ -423,7 +434,7 @@ class BNN:
                 batch_idxs = idxs[:, batch_num * batch_size:(batch_num + 1) * batch_size]
                 self.sess.run(
                     self.train_op,
-                    feed_dict={self.sy_train_in: inputs[batch_idxs], self.sy_train_targ: targets[batch_idxs]}
+                    feed_dict={self.sy_train_in: inputs[batch_idxs], self.sy_train_targ: targets[batch_idxs], self.sy_train_pol: policies[batch_idxs]}
                 )
                 grad_updates += 1
 
@@ -434,7 +445,8 @@ class BNN:
                             self.mse_loss,
                             feed_dict={
                                 self.sy_train_in: inputs[idxs[:, :max_logging]],
-                                self.sy_train_targ: targets[idxs[:, :max_logging]]
+                                self.sy_train_targ: targets[idxs[:, :max_logging]],
+                                self.sy_train_pol: policies[idxs[:, :max_logging]],
                             }
                         )
                     named_losses = [['M{}'.format(i), losses[i]] for i in range(len(losses))]
@@ -444,14 +456,16 @@ class BNN:
                             self.mse_loss,
                             feed_dict={
                                 self.sy_train_in: inputs[idxs[:, :max_logging]],
-                                self.sy_train_targ: targets[idxs[:, :max_logging]]
+                                self.sy_train_targ: targets[idxs[:, :max_logging]],
+                                self.sy_train_pol: policies[idxs[:, :max_logging]],
                             }
                         )
                     holdout_losses = self.sess.run(
                             self.mse_loss,
                             feed_dict={
                                 self.sy_train_in: holdout_inputs,
-                                self.sy_train_targ: holdout_targets
+                                self.sy_train_targ: holdout_targets,
+                                self.sy_train_pol: holdout_policies,
                             }
                         )
                     named_losses = [['M{}'.format(i), losses[i]] for i in range(len(losses))]
@@ -482,7 +496,8 @@ class BNN:
             self.mse_loss,
             feed_dict={
                 self.sy_train_in: holdout_inputs,
-                self.sy_train_targ: holdout_targets
+                self.sy_train_targ: holdout_targets,
+                self.sy_train_pol: holdout_policies,
             }
         )
 
@@ -667,7 +682,7 @@ class BNN:
         else:
             return mean, tf.exp(logvar)
 
-    def _compile_losses(self, inputs, targets, inc_var_loss=True):
+    def _compile_losses(self, inputs, targets, policies, inc_var_loss=True):
         """Helper method for compiling the loss function.
 
         The loss function is obtained from the log likelihood, assuming that the output
@@ -677,6 +692,7 @@ class BNN:
         Arguments:
             inputs: (tf.Tensor) A tensor representing the input batch
             targets: (tf.Tensor) The desired targets for each input vector in inputs.
+            policies: (tf.Tensor) The policy used to generate each input vector in inputs.
             inc_var_loss: (bool) If True, includes log variance loss.
 
         Returns: (tf.Tensor) A tensor representing the loss on the input arguments.
@@ -684,11 +700,25 @@ class BNN:
         mean, log_var = self._compile_outputs(inputs, ret_log_var=True)
         inv_var = tf.exp(-log_var)
 
-        if inc_var_loss:
-            mse_losses = tf.reduce_mean(tf.reduce_mean(tf.square(mean - targets) * inv_var, axis=-1), axis=-1)
-            var_losses = tf.reduce_mean(tf.reduce_mean(log_var, axis=-1), axis=-1)
-            total_losses = mse_losses + var_losses
-        else:
-            total_losses = tf.reduce_mean(tf.reduce_mean(tf.square(mean - targets), axis=-1), axis=-1)
+        def calc_policy_loss(pol):
+            mean_pol    = tf.where(tf.equal(tf.tile(policies,(1,1,mean.shape[-1])),pol),    mean, tf.zeros_like(mean))
+            targets_pol = tf.where(tf.equal(tf.tile(policies,(1,1,targets.shape[-1])),pol), targets, tf.zeros_like(targets))
+            log_var_pol = tf.where(tf.equal(tf.tile(policies,(1,1,log_var.shape[-1])),pol), log_var, tf.zeros_like(log_var))
+            inv_var_pol = tf.where(tf.equal(tf.tile(policies,(1,1,inv_var.shape[-1])),pol), inv_var, tf.zeros_like(inv_var))
 
-        return total_losses
+            if inc_var_loss:
+                # Alan: Log-likelihood.
+                mse_losses = tf.reduce_mean(tf.reduce_mean(tf.square(mean_pol - targets_pol) * inv_var_pol, axis=-1), axis=-1)
+                var_losses = tf.reduce_mean(tf.reduce_mean(log_var_pol, axis=-1), axis=-1)
+                return mse_losses + var_losses
+            else:
+                # Alan: MSE.
+                return tf.reduce_mean(tf.reduce_mean(tf.square(mean_pol - targets_pol), axis=-1), axis=-1)
+
+        unique_pols = tf.unique(tf.reshape(policies, [-1])).y
+        policy_losses = tf.map_fn(calc_policy_loss, unique_pols)
+
+        # Add the losses across all the polocies
+        total_loss = tf.reduce_sum(policy_losses, axis=0)
+
+        return total_loss

@@ -48,10 +48,11 @@ def format_samples_for_training(samples):
 	act = samples['actions']
 	next_obs = samples['next_observations']
 	rew = samples['rewards']
+	pol = samples['policies']
 	delta_obs = next_obs - obs
 	inputs = np.concatenate((obs, act), axis=-1)
 	outputs = np.concatenate((rew, delta_obs), axis=-1)
-	return inputs, outputs
+	return inputs, outputs, pol
 
 def reset_model(model):
 	model_vars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope=model.name)

@@ -67,6 +67,10 @@ class SimpleReplayPool(FlexibleReplayPool):
                 'shape': active_observation_shape,
                 'dtype': 'float32'
             },
+            'policies': {
+                'shape': (1, ),
+                'dtype': 'float32'
+            },
         }
 
         super(SimpleReplayPool, self).__init__(

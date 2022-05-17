@@ -29,6 +29,10 @@ def main():
 
         # Add a column to the array with the ID of the trajectory
         policy_id = np.full((trans_arr.shape[0], 1), i)
+        
+        # TODO: Remove this - it is solely for testing purposes
+        policy_id[int(trans_arr.shape[0]/2):] = 1
+
         trans_arr = np.hstack((trans_arr, policy_id))
 
         # Combine the trajectories

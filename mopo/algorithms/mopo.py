@@ -401,8 +401,8 @@ class MOPO(RLAlgorithm):
             model_metrics = {}
         else:
             env_samples = self._pool.return_all_samples()
-            train_inputs, train_outputs = format_samples_for_training(env_samples)
-            model_metrics = self._model.train(train_inputs, train_outputs, **kwargs)
+            train_inputs, train_outputs, train_policies = format_samples_for_training(env_samples)
+            model_metrics = self._model.train(train_inputs, train_outputs, train_policies, **kwargs)
         return model_metrics
 
     def _rollout_model(self, rollout_batch_size, **kwargs):
